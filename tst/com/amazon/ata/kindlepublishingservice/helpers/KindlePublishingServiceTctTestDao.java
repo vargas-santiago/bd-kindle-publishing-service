@@ -232,7 +232,7 @@ public class KindlePublishingServiceTctTestDao {
     @DynamoDBTable(tableName = "PublishingStatus")
     public static class PublishingStatusItem implements KindlePublishingServiceTctTestData {
         private String publishingRecordId;
-        private PublishingRecordStatus status;
+        private PublishingRecordStatus statuss;
         private String statusMessage;
         private String bookId;
 
@@ -246,13 +246,13 @@ public class KindlePublishingServiceTctTestDao {
         }
 
         @DynamoDBTypeConvertedEnum
-        @DynamoDBRangeKey(attributeName = "status")
+        @DynamoDBRangeKey(attributeName = "statuss")
         public PublishingRecordStatus getStatus() {
-            return status;
+            return statuss;
         }
 
-        public void setStatus(PublishingRecordStatus status) {
-            this.status = status;
+        public void setStatus(PublishingRecordStatus statuss) {
+            this.statuss = statuss;
         }
 
         @DynamoDBAttribute(attributeName = "statusMessage")
@@ -277,7 +277,7 @@ public class KindlePublishingServiceTctTestDao {
         public String toString() {
             return "PublishingStatusItem{" +
                 "publishingRecordId='" + publishingRecordId + '\'' +
-                ", status=" + status +
+                ", status=" + statuss +
                 ", statusMessage='" + statusMessage + '\'' +
                 ", bookId='" + bookId + '\'' +
                 '}';

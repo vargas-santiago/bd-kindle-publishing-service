@@ -1,16 +1,28 @@
 package com.amazon.ata.kindlepublishingservice.dao;
 
+import com.amazon.ata.kindlepublishingservice.dynamodb.models.CatalogItemVersion;
 import com.amazon.ata.kindlepublishingservice.dynamodb.models.PublishingStatusItem;
 import com.amazon.ata.kindlepublishingservice.enums.PublishingRecordStatus;
+import com.amazon.ata.kindlepublishingservice.exceptions.BookNotFoundException;
 import com.amazon.ata.kindlepublishingservice.exceptions.PublishingStatusNotFoundException;
+import com.amazon.ata.kindlepublishingservice.models.PublishingStatus;
 import com.amazon.ata.kindlepublishingservice.utils.KindlePublishingUtils;
 
+import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.document.*;
+import com.amazonaws.services.dynamodbv2.document.spec.QuerySpec;
+import com.amazonaws.services.dynamodbv2.document.utils.ValueMap;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
+import java.util.*;
 import javax.inject.Inject;
+import javax.management.Query;
 
 /**
  * Accesses the Publishing Status table.
@@ -77,4 +89,62 @@ public class PublishingStatusDao {
         dynamoDbMapper.save(item);
         return item;
     }
+
+
+
+    public List<PublishingStatusItem> getPublishingStatuses(String publishingStatusId) {
+
+        List<PublishingStatusItem> statuses = new ArrayList<>();
+
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+                .withCredentials(DefaultAWSCredentialsProviderChain.getInstance())
+                .withRegion(Regions.US_WEST_2)
+                .build();
+
+        DynamoDB dynamoDB = new DynamoDB(client);
+
+        Table table = dynamoDB.getTable("PublishingStatus");
+
+
+        QuerySpec spec = new QuerySpec()
+                .withKeyConditionExpression("publishingRecordId = :publishingRecordId")
+                .withValueMap(new ValueMap()
+                        .withString(":publishingRecordId", publishingStatusId));
+
+        ItemCollection<QueryOutcome> items = table.query(spec);
+
+        Iterator<Item> iterator = items.iterator();
+        Item item = null;
+
+        if (iterator.hasNext() == false) {
+            throw new PublishingStatusNotFoundException("No publishing status found for status id: " + publishingStatusId);
+        }
+
+        while (iterator.hasNext()) {
+            item = iterator.next();
+            PublishingStatusItem pItem = new PublishingStatusItem();
+            if (item.get("bookId") != null) {
+                pItem.setBookId(item.get("bookId").toString());
+            }
+
+            if (item.get("publishingRecordId") != null) {
+                pItem.setPublishingRecordId(item.get("publishingRecordId").toString());
+            }
+
+            if (item.get("statuss") != null) {
+                pItem.setStatus(PublishingRecordStatus.valueOf(item.get("statuss").toString()));
+            }
+
+            if (item.get("statusMessage") != null) {
+                pItem.setStatusMessage(item.get("statusMessage").toString());
+            }
+            System.out.println(pItem.getPublishingRecordId());
+
+            statuses.add(pItem);
+        }
+
+        return statuses;
+    }
+
+
 }

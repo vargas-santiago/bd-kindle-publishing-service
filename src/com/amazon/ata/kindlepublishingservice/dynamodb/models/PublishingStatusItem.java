@@ -2,16 +2,12 @@ package com.amazon.ata.kindlepublishingservice.dynamodb.models;
 
 import com.amazon.ata.kindlepublishingservice.enums.PublishingRecordStatus;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
 @DynamoDBTable(tableName = "PublishingStatus")
 public class PublishingStatusItem {
     private String publishingRecordId;
-    private PublishingRecordStatus status;
+    private PublishingRecordStatus statuss;
     private String statusMessage;
     private String bookId;
 
@@ -25,13 +21,13 @@ public class PublishingStatusItem {
     }
 
     @DynamoDBTypeConvertedEnum
-    @DynamoDBRangeKey(attributeName = "status")
+    @DynamoDBRangeKey(attributeName = "statuss")
     public PublishingRecordStatus getStatus() {
-        return status;
+        return statuss;
     }
 
-    public void setStatus(PublishingRecordStatus status) {
-        this.status = status;
+    public void setStatus(PublishingRecordStatus statuss) {
+        this.statuss = statuss;
     }
 
     @DynamoDBAttribute(attributeName = "statusMessage")

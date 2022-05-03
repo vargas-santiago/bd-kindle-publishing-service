@@ -21,12 +21,12 @@ Resources:
       AttributeDefinitions:
         - AttributeName: "publishingRecordId"
           AttributeType: "S"
-        - AttributeName: "status"
+        - AttributeName: "statuss"
           AttributeType: "S"
       KeySchema:
         - AttributeName: "publishingRecordId"
           KeyType: "HASH"
-        - AttributeName: "status"
+        - AttributeName: "statuss"
           KeyType: "RANGE"
       BillingMode: "PAY_PER_REQUEST"
       TableName: "PublishingStatus"

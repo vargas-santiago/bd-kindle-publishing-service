@@ -1,9 +1,11 @@
 package com.amazon.ata.kindlepublishingservice.mastery.mt4;
 
+import com.amazon.ata.aws.dynamodb.DynamoDbClientProvider;
 import com.amazon.ata.kindlepublishingservice.dagger.ATAKindlePublishingServiceManager;
 import com.amazon.ata.kindlepublishingservice.dagger.ApplicationComponent;
 import com.amazon.ata.kindlepublishingservice.dagger.DaggerApplicationComponent;
 import com.amazon.ata.kindlepublishingservice.helpers.IntegrationTestBase;
+import com.amazon.ata.kindlepublishingservice.helpers.KindlePublishingServiceTctTestDao;
 import com.amazon.ata.kindlepublishingservice.helpers.KindlePublishingServiceTctTestDao.CatalogItemVersion;
 import com.amazon.ata.kindlepublishingservice.helpers.SubmitBookForPublishingHelper;
 import com.amazon.ata.kindlepublishingservice.models.*;
@@ -12,12 +14,20 @@ import com.amazon.ata.kindlepublishingservice.models.requests.GetPublishingStatu
 import com.amazon.ata.kindlepublishingservice.models.requests.SubmitBookForPublishingRequest;
 import com.amazon.ata.kindlepublishingservice.models.response.GetBookResponse;
 import com.amazon.ata.kindlepublishingservice.models.response.GetPublishingStatusResponse;
+import com.amazon.ata.kindlepublishingservice.models.response.RemoveBookFromCatalogResponse;
 import com.amazon.ata.kindlepublishingservice.models.response.SubmitBookForPublishingResponse;
 import com.amazon.ata.recommendationsservice.types.BookGenre;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -26,7 +36,7 @@ import static org.testng.Assert.*;
 
 public class MasteryTaskFourSubmitBookForPublishingTests extends IntegrationTestBase {
     private static final Duration GET_EXPECTED_STATUS_BUFFER = Duration.ofMillis(500L);
-    private static final int MAX_GET_EXPECTED_STATUS_ATTEMPTS = 10;
+    private static final int MAX_GET_EXPECTED_STATUS_ATTEMPTS = 50;
     private static final ApplicationComponent COMPONENT = DaggerApplicationComponent.create();
 
     /**

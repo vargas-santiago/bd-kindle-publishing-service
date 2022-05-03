@@ -14,7 +14,7 @@ public final class BookPublishRequest {
     private final String text;
     private final BookGenre genre;
 
-    private BookPublishRequest(Builder builder) {
+    public BookPublishRequest(Builder builder) {
         this.publishingRecordId = builder.publishingRecordId;
         this.bookId = builder.bookId;
         this.title = builder.title;
