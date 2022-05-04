@@ -54,6 +54,7 @@ public class PublishingStatusDao {
     public PublishingStatusItem setPublishingStatus(String publishingRecordId,
                                                     PublishingRecordStatus publishingRecordStatus,
                                                     String bookId) {
+
         return setPublishingStatus(publishingRecordId, publishingRecordStatus, bookId, null);
     }
 
@@ -86,9 +87,39 @@ public class PublishingStatusDao {
         item.setStatus(publishingRecordStatus);
         item.setStatusMessage(statusMessage);
         item.setBookId(bookId);
-        dynamoDbMapper.save(item);
+
+        PublishingStatusItem old = new PublishingStatusItem();
+        old.setPublishingRecordId(publishingRecordId);
+
+        if (publishingRecordStatus == PublishingRecordStatus.QUEUED) {
+            dynamoDbMapper.save(item);
+        }
+
+        if (publishingRecordStatus == PublishingRecordStatus.SUCCESSFUL || publishingRecordStatus == PublishingRecordStatus.FAILED) {
+            old.setStatus(PublishingRecordStatus.IN_PROGRESS);
+            dynamoDbMapper.save(item);
+            this.removePublishingStatus(old);
+        }
+
+        if (publishingRecordStatus == PublishingRecordStatus.IN_PROGRESS) {
+            old.setStatus(PublishingRecordStatus.QUEUED);
+            dynamoDbMapper.save(item);
+            this.removePublishingStatus(old);
+        }
+
+
+
+
         return item;
     }
+
+    public PublishingStatusItem removePublishingStatus(PublishingStatusItem item) {
+        dynamoDbMapper.delete(item);
+        return item;
+    }
+
+
+
 
 
 

@@ -51,7 +51,7 @@ public class MasteryTaskTwoSubmitBookForPublishingTests extends IntegrationTestB
             .build();
 
         // WHEN
-        SubmitBookForPublishingResponse response = COMPONENT.provideSubmitBookForPublishingActivity().execute(submitBookForPublishingRequest);
+        SubmitBookForPublishingResponse response = COMPONENT.provideSubmitBookForPublishingActivity().execute2(submitBookForPublishingRequest);
 
         // THEN
         PublishingStatusItem key = new PublishingStatusItem();
@@ -83,7 +83,7 @@ public class MasteryTaskTwoSubmitBookForPublishingTests extends IntegrationTestB
             .build();
 
         // WHEN
-        SubmitBookForPublishingResponse response = COMPONENT.provideSubmitBookForPublishingActivity().execute(submitBookForPublishingRequest);
+        SubmitBookForPublishingResponse response = COMPONENT.provideSubmitBookForPublishingActivity().execute2(submitBookForPublishingRequest);
 
         // THEN
         PublishingStatusItem key = new PublishingStatusItem();
@@ -113,7 +113,7 @@ public class MasteryTaskTwoSubmitBookForPublishingTests extends IntegrationTestB
             .build();
 
         // WHEN
-        SubmitBookForPublishingResponse response = COMPONENT.provideSubmitBookForPublishingActivity().execute(submitBookForPublishingRequest);
+        SubmitBookForPublishingResponse response = COMPONENT.provideSubmitBookForPublishingActivity().execute2(submitBookForPublishingRequest);
 
       // THEN
         PublishingStatusItem key = new PublishingStatusItem();
@@ -147,29 +147,31 @@ public class MasteryTaskTwoSubmitBookForPublishingTests extends IntegrationTestB
 
     @Test
     public void test() {
-//        String itemM = "publishingstatus.88fee022-adba-4b48-aae6-2eeace430694";
-//        String itemS = "publishingstatus.07fec664-d151-44b4-91eb-8bc355e90776";
-//
-//        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
-//                .withRegion(Regions.US_WEST_2).build();
-//        DynamoDB dynamoDB = new DynamoDB(client);
-//        DynamoDBMapper mapper = new DynamoDBMapper(client);
-//
-//        Map<String, AttributeValue> test = new HashMap<>();
-//
-//        test.put(":statuss", new AttributeValue().withS("QUEUED"));
-//
-//        DynamoDBQueryExpression<PublishingStatusItem> query = new DynamoDBQueryExpression<PublishingStatusItem>()
-//                .withConsistentRead(false)
-//                .withIndexName("statuss-index")
-//                .withKeyConditionExpression("statuss = :statuss")
-//                .withExpressionAttributeValues(test);
-//
-//        List<PublishingStatusItem> items = mapper.query(PublishingStatusItem.class, query);
-//
-//        for (PublishingStatusItem item : items) {
-//            System.out.println(item);
-//        }
+        String itemM = "publishingstatus.88fee022-adba-4b48-aae6-2eeace430694";
+        String itemS = "publishingstatus.07fec664-d151-44b4-91eb-8bc355e90776";
+
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
+                .withRegion(Regions.US_WEST_2).build();
+        DynamoDB dynamoDB = new DynamoDB(client);
+        DynamoDBMapper mapper = new DynamoDBMapper(client);
+
+        Map<String, AttributeValue> test = new HashMap<>();
+
+        test.put(":statuss", new AttributeValue().withS("QUEUED"));
+
+        DynamoDBQueryExpression<PublishingStatusItem> query = new DynamoDBQueryExpression<PublishingStatusItem>()
+                .withConsistentRead(false)
+                .withIndexName("statuss-index")
+                .withKeyConditionExpression("statuss = :statuss")
+                .withExpressionAttributeValues(test)
+                .withScanIndexForward(false)
+                .withLimit(1);
+
+        List<PublishingStatusItem> items = mapper.query(PublishingStatusItem.class, query);
+
+        for (PublishingStatusItem item : items) {
+            System.out.println(item);
+        }
 
         //BookPublishRequestManager manager = new BookPublishRequestManager();
         //manager.populateRequest();

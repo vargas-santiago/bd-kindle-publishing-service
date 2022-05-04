@@ -51,7 +51,9 @@ public class BookPublishRequestManager {
                 .withConsistentRead(false)
                 .withIndexName("statuss-index")
                 .withKeyConditionExpression("statuss = :statuss")
-                .withExpressionAttributeValues(test);
+                .withExpressionAttributeValues(test)
+                    .withScanIndexForward(false)
+                .withLimit(1);
 
         List<PublishingStatusItem> items = mapper.query(PublishingStatusItem.class, query);
 
@@ -77,15 +79,6 @@ public class BookPublishRequestManager {
         }
 
         BookPublishRequest request = requests.get(requests.size() -1);
-
-        BookPublishRequest newRequest = BookPublishRequest.builder()
-                .withPublishingRecordId(request.getPublishingRecordId())
-                .withBookId(request.getBookId())
-                .withGenre(request.getGenre())
-                .withText(request.getText())
-                .withAuthor(request.getAuthor())
-                .withTitle(request.getTitle())
-                .build();
 
 
         return request;

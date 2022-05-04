@@ -62,6 +62,8 @@ public class BookPublishTask implements Runnable {
 
         System.out.println("FOUND REQUEST" + requests.getPublishingRecordId());
 
+        Thread.sleep(600);
+
         publishingStatusDao.setPublishingStatus(requests.getPublishingRecordId(), PublishingRecordStatus.IN_PROGRESS, requests.getBookId());
 
         KindleFormattedBook kindleFormattedBook = KindleFormatConverter.format(requests);

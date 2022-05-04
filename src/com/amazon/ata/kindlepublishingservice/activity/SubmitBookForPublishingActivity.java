@@ -82,4 +82,21 @@ public class SubmitBookForPublishingActivity {
                 .withPublishingRecordId(item.getPublishingRecordId())
                 .build();
     }
+
+    public SubmitBookForPublishingResponse execute2(SubmitBookForPublishingRequest request) {
+
+        if (request.getBookId() != null) {
+            catalogDao.getBookFromCatalog2(request.getBookId());
+        }
+
+        final BookPublishRequest bookPublishRequest = BookPublishRequestConverter.toBookPublishRequest(request);
+
+        PublishingStatusItem item =  publishingStatusDao.setPublishingStatus(bookPublishRequest.getPublishingRecordId(),
+                PublishingRecordStatus.QUEUED,
+                bookPublishRequest.getBookId());
+
+        return SubmitBookForPublishingResponse.builder()
+                .withPublishingRecordId(item.getPublishingRecordId())
+                .build();
+    }
 }

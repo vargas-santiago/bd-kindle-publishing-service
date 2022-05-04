@@ -55,9 +55,9 @@ public class CatalogDao {
     public CatalogItemVersion getBookFromCatalog2(String bookId) {
         CatalogItemVersion book = getLatestVersionOfBook(bookId);
 
-//        if (book == null || book.isInactive()) {
-//            throw new BookNotFoundException(String.format("No book found for id: %s", bookId));
-//        }
+        if (book == null) {
+            throw new BookNotFoundException(String.format("No book found for id: %s", bookId));
+        }
 
         return book;
     }
