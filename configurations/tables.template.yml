@@ -1,5 +1,5 @@
 Resources:
-  CatalogItemVersionsTable:
+  CatalogItemVersionsTables:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
@@ -15,7 +15,7 @@ Resources:
       BillingMode: "PAY_PER_REQUEST"
       TableName: "CatalogItemVersions"
 
-  PublishingStatusTable:
+  PublishingStatusTables:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:

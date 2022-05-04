@@ -6,7 +6,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.bdd319cb-05eb-494b-983f-6e1b983c4c46"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "QUEUED"
                     },
                     "statusMessage": {
@@ -21,7 +21,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.bdd319cb-05eb-494b-983f-6e1b983c4c46"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "IN_PROGRESS"
                     },
                     "statusMessage": {
@@ -36,7 +36,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.bdd319cb-05eb-494b-983f-6e1b983c4c46"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "SUCCESSFUL"
                     },
                     "statusMessage": {
@@ -54,7 +54,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.2bc206a1-5b41-4782-a260-976c0a291825"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "QUEUED"
                     },
                     "statusMessage": {
@@ -72,7 +72,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.2bc206a1-5b41-4782-a260-976c0a291825"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "IN_PROGRESS"
                     },
                     "statusMessage": {
@@ -90,7 +90,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.2bc206a1-5b41-4782-a260-976c0a291825"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "SUCCESSFUL"
                     },
                     "statusMessage": {
@@ -108,7 +108,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.4bd41646-b1b2-4627-8304-5180c9b54e00"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "QUEUED"
                     },
                     "statusMessage": {
@@ -123,7 +123,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.4bd41646-b1b2-4627-8304-5180c9b54e00"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "IN_PROGRESS"
                     },
                     "statusMessage": {
@@ -138,7 +138,7 @@
                     "publishingRecordId": {
                         "S": "publishingstatus.4bd41646-b1b2-4627-8304-5180c9b54e00"
                     },
-                    "status": {
+                    "statuss": {
                         "S": "FAILED"
                     },
                     "statusMessage": {
