@@ -16,11 +16,8 @@ import javax.inject.Inject;
 import java.util.*;
 
 public class BookPublishRequestManager {
-
-    //private Collection<BookPublishRequest> requests;
     private List<BookPublishRequest> requests;
 
-    @Inject
     public BookPublishRequestManager() {
 
     }

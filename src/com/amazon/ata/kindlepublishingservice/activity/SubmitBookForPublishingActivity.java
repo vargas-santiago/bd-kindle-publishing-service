@@ -58,21 +58,8 @@ public class SubmitBookForPublishingActivity {
             request.setBookId(KindlePublishingUtils.generateBookId());
         }
 
-        /*
-        if (request.getTitle() == null || request.getAuthor() == null || request.getGenre() == null || request.getText() == null) {
-            throw new ValidationException();
-        }
-         */
-
 
         final BookPublishRequest bookPublishRequest = BookPublishRequestConverter.toBookPublishRequest(request);
-
-        // TODO: Submit the BookPublishRequest for processing
-
-        // BookPublishRequestManager manager = new BookPublishRequestManager();
-
-        //manager.addBookPublishRequest(bookPublishRequest);
-
 
         PublishingStatusItem item =  publishingStatusDao.setPublishingStatus(bookPublishRequest.getPublishingRecordId(),
                 PublishingRecordStatus.QUEUED,

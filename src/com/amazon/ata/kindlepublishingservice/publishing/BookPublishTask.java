@@ -15,7 +15,6 @@ import java.util.List;
 
 public class BookPublishTask implements Runnable {
 
-    private BookPublishRequestManager manager;
     private PublishingStatusDao publishingStatusDao;
     private CatalogDao catalogDao;
 
@@ -25,8 +24,7 @@ public class BookPublishTask implements Runnable {
             .build();
 
     @Inject
-    public BookPublishTask(BookPublishRequestManager manager) {
-        this.manager = manager;
+    public BookPublishTask() {
         this.publishingStatusDao = new PublishingStatusDao(new DynamoDBMapper(amazonDynamoDBClient));
         this.catalogDao = new CatalogDao(new DynamoDBMapper(amazonDynamoDBClient));
     }

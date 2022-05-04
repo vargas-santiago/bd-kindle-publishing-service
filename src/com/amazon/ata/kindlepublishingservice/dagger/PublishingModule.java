@@ -18,7 +18,7 @@ public class PublishingModule {
     @Provides
     @Singleton
     public BookPublisher provideBookPublisher(ScheduledExecutorService scheduledExecutorService) {
-        return new BookPublisher(scheduledExecutorService, new BookPublishTask(provideBookPublishRequestManager()) );
+        return new BookPublisher(scheduledExecutorService, new BookPublishTask());
     }
 
     @Provides
@@ -27,11 +27,6 @@ public class PublishingModule {
         return Executors.newScheduledThreadPool(1);
     }
 
-    @Provides
-    @Singleton
-    public BookPublishRequestManager provideBookPublishRequestManager() {
-        return new BookPublishRequestManager();
-    }
 
 
 }
