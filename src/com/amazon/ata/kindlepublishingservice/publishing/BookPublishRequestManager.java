@@ -55,7 +55,7 @@ public class BookPublishRequestManager {
         List<PublishingStatusItem> items = mapper.query(PublishingStatusItem.class, query);
 
         for (int i = 0; i < items.size(); i ++) {
-            if (i == items.size() - 1) {
+            if (i == 0) {
                 BookPublishRequest bookPublishRequest = BookPublishRequest.builder()
                         .withBookId(items.get(i).getBookId())
                         .withAuthor("author")

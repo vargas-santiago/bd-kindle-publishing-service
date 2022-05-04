@@ -4,7 +4,7 @@ import com.amazon.ata.kindlepublishingservice.enums.PublishingRecordStatus;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.*;
 
-@DynamoDBTable(tableName = "PublishingStatus")
+@DynamoDBTable(tableName = "PublishingStatuss")
 public class PublishingStatusItem {
     private String publishingRecordId;
     private PublishingRecordStatus statuss;

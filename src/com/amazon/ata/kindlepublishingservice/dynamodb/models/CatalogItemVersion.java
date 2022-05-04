@@ -10,7 +10,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTypeConvertedEnum;
 
 import java.util.Objects;
 
-@DynamoDBTable(tableName = "CatalogItemVersions")
+@DynamoDBTable(tableName = "CatalogItemVersionss")
 public class CatalogItemVersion {
     private String bookId;
     private int version;

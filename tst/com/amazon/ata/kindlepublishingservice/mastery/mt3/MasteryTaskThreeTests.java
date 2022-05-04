@@ -1,5 +1,7 @@
 package com.amazon.ata.kindlepublishingservice.mastery.mt3;
 
+import com.amazon.ata.kindlepublishingservice.dao.PublishingStatusDao;
+import com.amazon.ata.kindlepublishingservice.mastery.TestUtils;
 import com.amazon.ata.kindlepublishingservice.models.requests.GetPublishingStatusRequest;
 import com.amazon.ata.kindlepublishingservice.models.response.GetPublishingStatusResponse;
 import com.amazon.ata.kindlepublishingservice.models.PublishingStatusRecord;
@@ -9,9 +11,19 @@ import com.amazon.ata.kindlepublishingservice.exceptions.PublishingStatusNotFoun
 import com.amazon.ata.kindlepublishingservice.helpers.IntegrationTestBase;
 import com.amazon.ata.kindlepublishingservice.helpers.KindlePublishingServiceTctTestDao.PublishingRecordStatus;
 import com.amazon.ata.kindlepublishingservice.helpers.KindlePublishingServiceTctTestDao.PublishingStatusItem;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBQueryExpression;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -28,12 +40,21 @@ public class MasteryTaskThreeTests extends IntegrationTestBase {
 
     private static final ApplicationComponent COMPONENT = DaggerApplicationComponent.create();
 
+    private final TestUtils utils = new TestUtils();
+
     /**
      * Ensure the test infra is ready for test run, including creating the client.
      */
     @BeforeEach
     public void setup() {
+        utils.cleanTables();
+
         savePublishingStatuses();
+    }
+
+    @AfterEach
+    public void CLEAN() {
+        utils.cleanTables();
     }
 
     @Test

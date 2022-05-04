@@ -8,6 +8,7 @@ import com.amazon.ata.kindlepublishingservice.helpers.IntegrationTestBase;
 import com.amazon.ata.kindlepublishingservice.helpers.KindlePublishingServiceTctTestDao;
 import com.amazon.ata.kindlepublishingservice.helpers.KindlePublishingServiceTctTestDao.CatalogItemVersion;
 import com.amazon.ata.kindlepublishingservice.helpers.SubmitBookForPublishingHelper;
+import com.amazon.ata.kindlepublishingservice.mastery.TestUtils;
 import com.amazon.ata.kindlepublishingservice.models.*;
 import com.amazon.ata.kindlepublishingservice.models.requests.GetBookRequest;
 import com.amazon.ata.kindlepublishingservice.models.requests.GetPublishingStatusRequest;
@@ -39,6 +40,8 @@ public class MasteryTaskFourSubmitBookForPublishingTests extends IntegrationTest
     private static final int MAX_GET_EXPECTED_STATUS_ATTEMPTS = 50;
     private static final ApplicationComponent COMPONENT = DaggerApplicationComponent.create();
 
+    private final TestUtils utils = new TestUtils();
+
     /**
      * Ensure the test infra is ready for test run, including creating the client.
      */
@@ -50,6 +53,16 @@ public class MasteryTaskFourSubmitBookForPublishingTests extends IntegrationTest
         } catch (Exception e) {
             System.out.println(e);
         }
+    }
+
+    @BeforeEach
+    public void CLEAN1() {
+        utils.cleanTables();
+    }
+
+    @AfterEach
+    public void CLEAN2() {
+        utils.cleanTables();
     }
 
     @Test

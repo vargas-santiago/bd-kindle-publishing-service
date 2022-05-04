@@ -42,6 +42,12 @@ public class KindlePublishingServiceTctTestDao {
         return item;
     }
 
+    public <T extends KindlePublishingServiceTctTestData> T delete(T item) {
+        this.dynamoDbMapper.delete(item);
+        //this.itemsToCleanup.add(item);
+        return item;
+    }
+
     /**
      * Load an instance of a KindlePublishingServiceTctTestData class.
      * @param key the key object
@@ -90,7 +96,7 @@ public class KindlePublishingServiceTctTestDao {
      * but participants are not asked to modify the model and
      * I prefer this over working with the low level DDB API and raw values
      */
-    @DynamoDBTable(tableName = "CatalogItemVersions")
+    @DynamoDBTable(tableName = "CatalogItemVersionss")
     public static class CatalogItemVersion implements KindlePublishingServiceTctTestData {
         private String bookId;
         private int version;
@@ -229,7 +235,7 @@ public class KindlePublishingServiceTctTestDao {
     /**
      * Copy of com.amazon.ata.kindlepublishingservice.dynamodb.models.PublishingStatusItem.
      */
-    @DynamoDBTable(tableName = "PublishingStatus")
+    @DynamoDBTable(tableName = "PublishingStatuss")
     public static class PublishingStatusItem implements KindlePublishingServiceTctTestData {
         private String publishingRecordId;
         private PublishingRecordStatus statuss;

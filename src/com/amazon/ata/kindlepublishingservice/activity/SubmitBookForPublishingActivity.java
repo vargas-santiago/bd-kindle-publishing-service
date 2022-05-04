@@ -72,9 +72,9 @@ public class SubmitBookForPublishingActivity {
 
     public SubmitBookForPublishingResponse execute2(SubmitBookForPublishingRequest request) {
 
-        if (request.getBookId() != null) {
-            catalogDao.getBookFromCatalog2(request.getBookId());
-        }
+//        if (request.getBookId() != null) {
+//            catalogDao.getBookFromCatalog2(request.getBookId());
+//        }
 
         final BookPublishRequest bookPublishRequest = BookPublishRequestConverter.toBookPublishRequest(request);
 

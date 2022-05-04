@@ -118,9 +118,10 @@ public class PublishingStatusDao {
         return item;
     }
 
-
-
-
+    public PublishingStatusItem removePublishingStatus4Test(PublishingStatusItem item) {
+        dynamoDbMapper.delete(item);
+        return item;
+    }
 
 
     public List<PublishingStatusItem> getPublishingStatuses(String publishingStatusId) {
@@ -134,7 +135,7 @@ public class PublishingStatusDao {
 
         DynamoDB dynamoDB = new DynamoDB(client);
 
-        Table table = dynamoDB.getTable("PublishingStatus");
+        Table table = dynamoDB.getTable("PublishingStatuss");
 
 
         QuerySpec spec = new QuerySpec()
